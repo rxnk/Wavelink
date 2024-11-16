@@ -62,6 +62,7 @@ class TrackSource(enum.Enum):
     YouTube = 0
     YouTubeMusic = 1
     SoundCloud = 2
+    AppleMusic = 3
 
 
 class DiscordVoiceCloseType(enum.Enum):
