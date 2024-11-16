@@ -129,7 +129,7 @@ class Playable:
         self._isrc: str | None = info.get("isrc")
         self._source: str = info["sourceName"]
 
-        plugin: dict[Any, Any] = data["pluginInfo"]
+        plugin: dict[Any, Any] = data.get("pluginInfo", {})
         self._album: Album = Album(data=plugin)
         self._artist: Artist = Artist(data=plugin)
 
@@ -520,7 +520,7 @@ class Playlist:
         playlist_info: PlaylistInfo = PlaylistInfo(data)
         self.tracks: list[Playable] = [Playable(data=track, playlist=playlist_info) for track in data["tracks"]]
 
-        plugin: dict[Any, Any] = data["pluginInfo"]
+        plugin: dict[Any, Any] = data.get("pluginInfo", {})
         self.type: str | None = plugin.get("type")
         self.url: str | None = plugin.get("url")
         self.artwork: str | None = plugin.get("artworkUrl")
@@ -674,7 +674,7 @@ class PlaylistInfo:
 
         self.tracks: int = len(data["tracks"])
 
-        plugin: dict[Any, Any] = data["pluginInfo"]
+        plugin: dict[Any, Any] = data.get("pluginInfo", {})
         self.type: str | None = plugin.get("type")
         self.url: str | None = plugin.get("url")
         self.artwork: str | None = plugin.get("artworkUrl")
