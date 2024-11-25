@@ -32,7 +32,7 @@ import wavelink
 
 from .enums import TrackSource
 from .utils import ExtrasNamespace
-
+from .deserializer import deserialize
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
@@ -116,7 +116,7 @@ class Playable:
 
     def __init__(self, data: TrackPayload, *, playlist: PlaylistInfo | None = None) -> None:
         info: TrackInfoPayload = data["info"]
-
+        
         self._encoded: str = data["encoded"]
         self._identifier: str = info["identifier"]
         self._is_seekable: bool = info["isSeekable"]
@@ -200,7 +200,7 @@ class Playable:
     @property
     def title(self) -> str:
         """Property returning the title/name of this track."""
-        return self._title
+        return deserialize(self._title)
 
     @property
     def uri(self) -> str | None:
@@ -670,7 +670,7 @@ class PlaylistInfo:
 
     def __init__(self, data: PlaylistPayload) -> None:
         info: PlaylistInfoPayload = data["info"]
-        self.name: str = info["name"]
+        self.name: str = deserialize(info["name"])
         self.selected: int = info["selectedTrack"]
 
         self.tracks: int = len(data["tracks"])
