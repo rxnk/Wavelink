@@ -106,7 +106,8 @@ def apply_filter_rules(text, rules):
     """
 
     for pattern, replacement in rules:
-        text = re.sub(pattern, replacement, text)
+        text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
+        
     return text
 
 
